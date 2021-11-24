@@ -5,10 +5,107 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- CSS only -->
+
     <title>Crud Application</title>
   </head>
   <body>
-    <header></header>
+    <nav class="navigation">
+      <div class="nav_wrapper flex_sb_center container">
+        <div class="left">
+          <h2>CRUD</h2>
+        </div>
+        <div class="right">
+          <div class="search_input flex_sb_center">
+            <span class="icon material-icons">search</span>
+            <form id="searchForm" onsubmit="submitHandler()">
+              <input
+                type="text"
+                placeholder="Search Employee..."
+                id="searchValue"
+                required
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="add_btn_wrapper">
+      <button class="btn add_btn" id="modelOpen_btn">
+        <span class="icon material-icons">add</span>
+        <p>Add</p>
+      </button>
+    </div>
+    <div class="input_model" id="model">
+      <div class="model_heading flex_sb_center">
+        <h4>Add New Employee</h4>
+        <span class="material-icons" id="modelClose_btn">close</span>
+      </div>
+      <form class="model_form">
+        <div class="form_controller">
+          <label for="name">Name</label>
+          <input type="text" id="employeeName" placeholder="Name.." />
+        </div>
+        <div class="form_controller">
+          <label for="email">Email</label>
+          <input type="text" id="employeeEmail" placeholder="Email.." />
+        </div>
+        <div class="form_controller">
+          <label for="position">Position</label>
+          <select name="position id=" position>
+            <option>--Select--Postion</option>
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Accountent">Accountent</option>
+            <option value="HR">Human Resource</option>
+            <option value="Intern">Intern</option>
+          </select>
+        </div>
+        <button class="btn">Add</button>
+      </form>
+    </div>
+    <main class="container">
+      <br />
+      <br />
+      <hr style="border: none; height: 1px; background-color: #dbdbdb" />
+      <br />
+      <table class="employee_table">
+        <tbody id="data">
+          <tr>
+            <th>Sr.No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+          <tr>
+            <td>Vishal</td>
+            <td>Vishal</td>
+            <td>Vishal</td>
+            <td>Vishal</td>
+            <td>
+              <button class="btn btn-delete">Delete</button>
+              <button class="btn btn-edit">Edit</button>
+              <button class="btn btn-view-profile">View Profile</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
     <script src="./main.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
