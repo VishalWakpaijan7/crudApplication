@@ -13,57 +13,6 @@ modelClose.addEventListener("click", () => {
   modelOverlay.classList.remove("overlay_active");
 });
 
-function initialData() {
-  let employee = localStorage.getItem("person");
-  employee = JSON.parse(employee);
-
-  let table = document.getElementById("data");
-  if (employee) {
-    employee.forEach(({ id, name, email, position }) => {
-      table.innerHTML += `<tr>
-      <td>${id}</td>
-      <td>${name}</td>
-      <td>${email}</td>
-      <td>${position}</td>
-      <td>
-        <button class="btn btn-delete" onclick="removeHandler(${id})">Remove</button>
-        <button class="btn btn-edit">Edit</button>
-        <button class="btn btn-view-profile">View Profile</button>
-      </td>
-    </tr>`;
-    });
-  } else {
-    table.innerHTML = `<h2>No Data</h2>`;
-  }
-}
-initialData();
-
-function removeHandler(id) {
-  let employee = localStorage.getItem("person");
-  employee = JSON.parse(employee);
-  let currentIndex = id;
-
-  employee.filter((id) => {
-    console.log(id !== currentIndex);
-  });
-}
-
-// Store Data
-
-function storeData(newEmployee) {
-  let person = localStorage.getItem("person");
-  person = JSON.parse(person);
-
-  if (!(person && Array.isArray(person))) {
-    person = [];
-  }
-
-  person.push(newEmployee);
-  localStorage.setItem("person", JSON.stringify(person));
-
-  return person.length;
-}
-
 // Adding Employees
 
 function addEmployee(e) {
@@ -76,7 +25,7 @@ function addEmployee(e) {
   let table = document.getElementById("data");
 
   if ((id, name, email, position !== "--Select value--")) {
-    storeData({
+    let index = storeData({
       id,
       name,
       email,
@@ -88,7 +37,7 @@ function addEmployee(e) {
     <td>${email}</td>
     <td>${position}</td>
     <td>
-      <button class="btn btn-delete">Remove</button>
+      <button class="btn btn-delete" onclick=(removeHandler(${index})) >Remove</button>
       <button class="btn btn-edit">Edit</button>
       <button class="btn btn-view-profile" >View Profile</button>
     </td>
@@ -111,6 +60,70 @@ function addEmployee(e) {
   document.getElementById("position").value = `--Select value--`;
   model.classList.remove("open_model");
   modelOverlay.classList.remove("overlay_active");
+}
+
+function initialData() {
+  let employee = localStorage.getItem("person");
+  employee = JSON.parse(employee);
+
+  let table = document.getElementById("data");
+  if (employee) {
+    let row = "";
+    let i;
+    for (i = 0; i < employee.length; i++) {
+      row += `
+      <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Actions</th>
+      </tr>
+      
+      <tr>
+      <td>${employee[i].id}</td>
+      <td>${employee[i].name}</td>
+      <td>${employee[i].email}</td>
+      <td>${employee[i].position}</td>
+      <td>
+        <button class="btn btn-delete" onclick="removeHandler(${i})">Remove</button>
+        <button class="btn btn-edit">Edit</button>
+        <button class="btn btn-view-profile" >View Profile</button>
+      </td>
+    </tr>`;
+    }
+    table.innerHTML = row;
+  } else {
+    table.innerHTML = `<h2>No Data</h2>`;
+  }
+}
+initialData();
+
+// Remove Handler
+
+function removeHandler(index) {
+  let employee = localStorage.getItem("person");
+  employee = JSON.parse(employee);
+  employee.splice(index, 1);
+  localStorage.setItem("person", JSON.stringify(employee));
+
+  initialData();
+}
+
+// Store Data
+
+function storeData(newEmployee) {
+  let person = localStorage.getItem("person");
+  person = JSON.parse(person);
+
+  if (!(person && Array.isArray(person))) {
+    person = [];
+  }
+
+  person.push(newEmployee);
+  localStorage.setItem("person", JSON.stringify(person));
+
+  return person.length;
 }
 
 document.getElementById("employeeform").addEventListener("submit", addEmployee);
