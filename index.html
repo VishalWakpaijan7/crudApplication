@@ -12,11 +12,10 @@
       rel="stylesheet"
     />
 
-    <!-- CSS only -->
-
     <title>Crud Application</title>
   </head>
   <body>
+    <!-- Navigation -->
     <nav class="navigation">
       <div class="nav_wrapper flex_sb_center container">
         <div class="left">
@@ -37,30 +36,41 @@
         </div>
       </div>
     </nav>
+
+    <!-- Add Button -->
+
     <div class="add_btn_wrapper">
       <button class="btn add_btn" id="modelOpen_btn">
         <span class="icon material-icons">add</span>
         <p>Add</p>
       </button>
     </div>
+
+    <div class="overlay"></div>
+
+    <!--Model  -->
+
+    <div class="overlay" id="modelOverlay"></div>
+
     <div class="input_model" id="model">
       <div class="model_heading flex_sb_center">
         <h4>Add New Employee</h4>
         <span class="material-icons" id="modelClose_btn">close</span>
       </div>
-      <form class="model_form">
+      <form class="model_form" id="employeeform">
         <div class="form_controller">
           <label for="name">Name</label>
-          <input type="text" id="employeeName" placeholder="Name.." />
+          <input type="text" id="employeeName" required />
         </div>
         <div class="form_controller">
           <label for="email">Email</label>
-          <input type="text" id="employeeEmail" placeholder="Email.." />
+          <input type="email" id="employeeEmail" required />
         </div>
         <div class="form_controller">
           <label for="position">Position</label>
-          <select name="position id=" position>
-            <option>--Select--Postion</option>
+          <div style="color: rgb(255, 251, 0); margin-top: 10px" id="pop"></div>
+          <select name="position" id="position" required>
+            <option>--Select value--</option>
             <option value="Manager">Manager</option>
             <option value="Developer">Developer</option>
             <option value="Accountent">Accountent</option>
@@ -68,9 +78,11 @@
             <option value="Intern">Intern</option>
           </select>
         </div>
-        <button class="btn">Add</button>
+        <button class="btn submit-btn" type="submit">Add</button>
       </form>
     </div>
+
+    <!-- Data Table -->
     <main class="container">
       <br />
       <br />
@@ -84,17 +96,6 @@
             <th>Email</th>
             <th>Position</th>
             <th>Actions</th>
-          </tr>
-          <tr>
-            <td>Vishal</td>
-            <td>Vishal</td>
-            <td>Vishal</td>
-            <td>Vishal</td>
-            <td>
-              <button class="btn btn-delete">Delete</button>
-              <button class="btn btn-edit">Edit</button>
-              <button class="btn btn-view-profile">View Profile</button>
-            </td>
           </tr>
         </tbody>
       </table>
