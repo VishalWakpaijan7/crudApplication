@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="./Img/favicon.png" type="image/x-icon" />
 
     <!-- Material Icons -->
     <link
@@ -12,24 +13,26 @@
       rel="stylesheet"
     />
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <title>Crud Application</title>
   </head>
   <body>
     <!-- Navigation -->
     <nav class="navigation">
       <div class="nav_wrapper flex_sb_center container">
-        <div class="left">
-          <h2>CRUD</h2>
+        <div class="left flex_sb_center">
+          <img src="./Img/favicon.png" alt="CURD" width="50px" />
+          <h2>CURD</h2>
         </div>
         <div class="right">
           <div class="search_input flex_sb_center">
             <span class="icon material-icons">search</span>
-            <form id="searchForm" onsubmit="submitHandler()">
+            <form id="searchForm">
               <input
                 type="text"
                 placeholder="Search Employee..."
                 id="searchValue"
-                required
               />
             </form>
           </div>
@@ -51,7 +54,7 @@
     <div class="overlay" id="modalOverlay"></div>
 
     <div class="input_modal" id="modal">
-      <div class="modal_heading flex_sb_center">
+      <div class="modal_heading heading flex_sb_center">
         <h4>Add New Employee</h4>
         <span class="material-icons" id="modalClose_btn">close</span>
       </div>
@@ -82,10 +85,8 @@
 
     <!-- Edit Employee modal -->
 
-    <div class="overlay" id="modalOverlay"></div>
-
     <div class="input_modal" id="editModalForm">
-      <div class="modal_heading flex_sb_center">
+      <div class="modal_heading heading flex_sb_center">
         <h4>Edit Employee</h4>
         <span class="material-icons" id="editModelClose">close</span>
       </div>
@@ -114,13 +115,42 @@
       </form>
     </div>
 
+    <!-- EmployeeCard || ViewProfile Output-->
+
+    <div id="employeeCard" class="employeeCard">
+      <div class="top_right_bubble"></div>
+      <div class="card_heading heading flex_sb_center">
+        <h2>PROFILE</h2>
+        <span class="material-icons" id="profileModelClose">close</span>
+      </div>
+      <div class="card_data" id="card_data"></div>
+      <div class="bottom_left_bubble"></div>
+    </div>
+
+    <div id="alert_card" class="employeeCard">
+      <div class="card_heading heading flex_sb_center">
+        <h2>PROFILE</h2>
+        <span class="material-icons" id="alertClose">close</span>
+      </div>
+      <div class="alert_text">
+        <h2>NO DATA FOUND</h2>
+        <p class="my-2">* Data is case sensetive</p>
+      </div>
+    </div>
+
     <!-- Data Table -->
     <main class="container">
       <br />
       <br />
-      <hr style="border: none; height: 1px; background-color: #dbdbdb" />
-      <br />
       <table class="employee_table">
+        <hr
+          style="
+            border: none;
+            height: 1px;
+            width: 100%;
+            background-color: #dbdbdb;
+          "
+        />
         <tbody id="data">
           <tr>
             <th>Name</th>
@@ -134,4 +164,11 @@
   </body>
 
   <script src="./main.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 1000,
+    });
+  </script>
 </html>

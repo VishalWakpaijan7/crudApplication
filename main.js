@@ -3,8 +3,17 @@ let modal = document.getElementById("modal");
 let modalOpen = document.getElementById("modalOpen_btn");
 let modalClose = document.getElementById("modalClose_btn");
 let modalOverlay = document.getElementById("modalOverlay");
+
+//  Edit modal
+
 let editModal = document.getElementById("editModalForm");
 let editModalOverlay = document.getElementById("modalOverlay");
+
+// profile Card
+
+let profileCard = document.getElementById("employeeCard");
+
+let alertPopup = document.getElementById("alert_card");
 
 modalOpen.addEventListener("click", () => {
   modal.classList.add("open_modal");
@@ -30,14 +39,14 @@ function initialData() {
   </tr>`;
     for (i = 0; i < employee.length; i++) {
       row += `
-       <tr>
+       <tr data-aos="fade-right">
       <td>${employee[i].name}</td>
       <td>${employee[i].email}</td>
       <td>${employee[i].position}</td>
-      <td>
+      <td class="btn_container" >
         <button class="btn btn-delete"  onclick="removeHandler(${i})">Remove</button>
         <button class="btn btn-edit edit_btn" onclick="populateEdit('${employee[i].name}','${employee[i].email}','${employee[i].position}',${i})">Edit</button>
-        <button class="btn btn-view-profile"  >View Profile</button>
+        <button class="btn btn-view-profile" onclick="ViewProfile('${employee[i].name}','${employee[i].email}','${employee[i].position}',${i})"  >View Profile</button>
       </td>
     </tr>`;
     }
@@ -45,8 +54,6 @@ function initialData() {
   }
 }
 initialData();
-
-// onclick="ViewProfile('${employee[i].name}','${employee[i].email}','${employee[i].position}',${i})"
 
 // Store Data
 
@@ -84,7 +91,7 @@ function addEmployee() {
     <td>${name}</td>
     <td>${email}</td>
     <td>${position}</td>
-    <td>
+    <td >
         <button class="btn btn-delete">Remove</button>
         <button class="btn btn-edit" id="edit_btn">Edit</button>
         <button class="btn btn-view-profile" >View Profile</button>
@@ -163,4 +170,59 @@ document.getElementById("editModelClose").addEventListener("click", () => {
   editModalOverlay.classList.remove("overlay_active");
 });
 
-//
+// View Profile
+
+function ViewProfile(name, email, position) {
+  let ouput = document.getElementById("card_data");
+  profileCard.classList.add("employeeCard_active");
+  editModalOverlay.classList.add("overlay_active");
+
+  ouput.innerHTML = `<img
+  class="my-3"
+  src="https://picsum.photos/200"
+  alt="Employee_Avatar"
+  title="${name}" 
+/>
+<h2 class="my-1">${name}</h2>
+<p>${email}</p>
+<h3 class="my-2">${position}</h3> `;
+}
+
+document.getElementById("profileModelClose").addEventListener("click", () => {
+  profileCard.classList.remove("employeeCard_active");
+  editModalOverlay.classList.remove("overlay_active");
+});
+
+// Search
+
+const searchHandler = (e) => {
+  e.preventDefault();
+  let searchValue = document.getElementById("searchValue").value;
+
+  let searchPerson = localStorage.getItem("person");
+  searchPerson = JSON.parse(searchPerson);
+
+  for (let i of searchPerson) {
+    if (i.name.match(searchValue)) {
+      alertPopup.classList.remove("employeeCard_active");
+      editModalOverlay.classList.remove("overlay_active");
+      return ViewProfile(i.name, i.email, i.position);
+    } else if (i.name !== searchValue) {
+      alertPopup.classList.add("employeeCard_active");
+      editModalOverlay.classList.add("overlay_active");
+    } else {
+      console.log("No data");
+    }
+  }
+
+  document.getElementById("alertClose").addEventListener("click", () => {
+    alertPopup.classList.remove("employeeCard_active");
+    editModalOverlay.classList.remove("overlay_active");
+  });
+
+  document.getElementById("searchValue").value = null;
+};
+
+let searchEmployee = document.getElementById("searchForm");
+
+searchEmployee.addEventListener("submit", searchHandler);
