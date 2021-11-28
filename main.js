@@ -39,7 +39,7 @@ function initialData() {
   </tr>`;
     for (i = 0; i < employee.length; i++) {
       row += `
-       <tr data-aos="fade-right">
+       <tr >
       <td>${employee[i].name}</td>
       <td>${employee[i].email}</td>
       <td>${employee[i].position}</td>
